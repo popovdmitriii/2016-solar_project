@@ -19,44 +19,50 @@ def calculate_force(body, space_objects):
         if body == obj:
             continue  # тело не действует гравитационной силой на само себя!
         r = ((body.x - obj.x)**2 + (body.y - obj.y)**2)**0.5
-        body.Fx += body.m*obj.m*G/r/r/r*(-body.x + obj.x)  ## FIXME: нужно вывести формулу...
-        body.Fy += body.m*obj.m*G/r/r/r*(-body.y + obj.y)  ## FIXME: нужно вывести формулу...
-
+        body.Fx += body.m*obj.m*gravitational_constant/r/r/r*(-body.x + obj.x)  ## FIXME: нужно вывести формулу...
+        body.Fy += body.m*obj.m*gravitational_constant/r/r/r*(-body.y + obj.y)  ## FIXME: нужно вывести формулу...
+        print('gggggggggg')
+        print(body.Fx)
 
 def move_space_object(body, dt):
     """Перемещает тело в соответствии с действующей на него силой.
 
     Параметры:
-
+    
     **body** — тело, которое нужно переместить.
     """
 
     ax = body.Fx/body.m
     ay = body.Fy/body.m
-
-    body.x += Vx  ##FIXME: не понимаю как менять...
-    body.y += Vy  ##FIXME: не понимаю как менять...
-
     body.Vx += ax*dt
     body.Vy += ay*dt
+
+    body.x += body.Vx  ##FIXME: не понимаю как менять...
+    body.y += body.Vy  ##FIXME: не понимаю как менять...
+    print('hhhhhhhhhhhhhhhhhhhhhhh')
+    print(body.x)
 
     ## FIXME: not done recalculation of y coordinate!
 
 
 def recalculate_space_objects_positions(space_objects, dt):
     """Пересчитывает координаты объектов.
-
+ 
     Параметры:
 
     **space_objects** — список оьъектов, для которых нужно пересчитать координаты.
     **dt** — шаг по времени
     """
-
+    print('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
     for body in space_objects:
         calculate_force(body, space_objects)
     for body in space_objects:
         move_space_object(body, dt)
-
+        print('bbbbbbbbbbbbbbbbbbbb')
+        print(body)
+        print('ttttttttttttttttttt')
+        print(dt)
+    
 
 if __name__ == "__main__":
     print("This module is not for direct call!")

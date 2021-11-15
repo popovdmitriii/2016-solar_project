@@ -27,24 +27,35 @@ space_objects = []
 
 
 def execution():
+    print ('execution')
     """Функция исполнения -- выполняется циклически, вызывая обработку всех небесных тел,
     а также обновляя их положение на экране.
     Цикличность выполнения зависит от значения глобальной переменной perform_execution.
     При perform_execution == True функция запрашивает вызов самой себя по таймеру через от 1 мс до 100 мс.
     """
     global physical_time
+    print ('1')
     global displayed_time
+    print ('2')
     recalculate_space_objects_positions(space_objects, time_step.get())
+    print ('3')
     for body in space_objects:
         update_object_position(space, body)
-    physical_time += time_step.get()
-    displayed_time.set("%.1f" % physical_time + " seconds gone")
+        print (body)
+    print ('4')
 
+    physical_time += time_step.get()
+    print ('5')
+    displayed_time.set("%.1f" % physical_time + " seconds gone")
+    print('6')
     if perform_execution:
+        print ('7')
         space.after(101 - int(time_speed.get()), execution)
+        print('8')
 
 
 def start_execution():
+    print('start_execution')
     """Обработчик события нажатия на кнопку Start.
     Запускает циклическое исполнение функции execution.
     """
@@ -58,6 +69,7 @@ def start_execution():
 
 
 def stop_execution():
+    print('stop_execution')
     """Обработчик события нажатия на кнопку Start.
     Останавливает циклическое исполнение функции execution.
     """
@@ -69,6 +81,7 @@ def stop_execution():
 
 
 def open_file_dialog():
+    print('open_file_dialog')
     """Открывает диалоговое окно выбора имени файла и вызывает
     функцию считывания параметров системы небесных тел из данного файла.
     Считанные объекты сохраняются в глобальный список space_objects
@@ -79,7 +92,9 @@ def open_file_dialog():
     for obj in space_objects:
         space.delete(obj.image)  # удаление старых изображений планет
     in_filename = askopenfilename(filetypes=(("Text file", ".txt"),))
+    print(in_filename)
     space_objects = read_space_objects_data_from_file(in_filename)
+    print('space_objects')
     max_distance = max([max(abs(obj.x), abs(obj.y)) for obj in space_objects])
     calculate_scale_factor(max_distance)
 
@@ -87,12 +102,17 @@ def open_file_dialog():
         if obj.type == 'star':
             create_star_image(space, obj)
         elif obj.type == 'planet':
+            print(obj)
             create_planet_image(space, obj)
+        
         else:
+            print(obj)
             raise AssertionError()
-
+    print('opensuccess')
 
 def save_file_dialog():
+    print('ave_file_dialo')
+
     """Открывает диалоговое окно выбора имени файла и вызывает
     функцию считывания параметров системы небесных тел из данного файла.
     Считанные объекты сохраняются в глобальный список space_objects
@@ -101,7 +121,9 @@ def save_file_dialog():
     write_space_objects_data_to_file(out_filename, space_objects)
 
 
+
 def main():
+    print('main')
     """Главная функция главного модуля.
     Создаёт объекты графического дизайна библиотеки tkinter: окно, холст, фрейм с кнопками, кнопки.
     """
@@ -117,7 +139,7 @@ def main():
 
     root = tkinter.Tk()
     # космическое пространство отображается на холсте типа Canvas
-    space = tkinter.Canvas(root, width=window_width, height=window_height, bg="black")
+    space = tkinter.Canvas(root, width=window_width, height=window_height, bg="red")
     space.pack(side=tkinter.TOP)
     # нижняя панель с кнопками
     frame = tkinter.Frame(root)

@@ -16,7 +16,8 @@ def read_space_objects_data_from_file(input_filename):
     objects = []
     with open(input_filename) as input_file:
         for line in input_file:
-            if len(line.strip()) == 0 or line[0] == '#':
+            print(line)
+            if len(line.split()) == 0 or line[0] == '#':
                 continue  # пустые строки и строки-комментарии пропускаем
             object_type = line.split()[0].lower()
             if object_type == "star":  
@@ -49,20 +50,22 @@ def parse_star_parameters(line, star):
     **star** — объект звезды.
     """
 
-    type, R, color, m, x, y, Vx, Vy = input().split()
+    type, R, color, m, x, y, Vx, Vy = line.split()
     R = int(R)
     m = float(m)
     x=float(x)
     y=float(y)
     Vx=float(Vx)
     Vy=float(Vy)
-    star.type=type ## FIXME: not done yet...
+    star.type=type.lower() ## FIXME: not done yet...
     star.R=R
+    star.color=color
     star.m=m
     star.x=x
     star.y=y
     star.Vx=Vx
     star.Vy=Vy 
+    
     
     
     
@@ -86,15 +89,16 @@ def parse_planet_parameters(line, planet):
     **line** — строка с описание планеты.
     **planet** — объект планеты.
     """
-    type, R, color, m, x, y, Vx, Vy = input().split()
+    type, R, color, m, x, y, Vx, Vy = line.split()
     R = int(R)
     m = float(m)
     x=float(x)
     y=float(y)
     Vx=float(Vx)
     Vy=float(Vy)
-    planet.type=type ## FIXME: not done yet...
+    planet.type=type.lower() ## FIXME: not done yet...
     planet.R=R
+    planet.color=color
     planet.m=m
     planet.x=x
     planet.y=y
